@@ -20,13 +20,15 @@ function Crud() {
   return (
     <>
       <div className='task2'>
-        <div className='title'>
+        <div id='crudTitle'>
           <div className='notes'>
             <h1 className='notesH1'>Notes</h1>
           </div>
           <button className='update'>Обнавить</button>
         </div>
-        <div className='crud'></div>
+        <div id='allNotes'></div>
+        <div id='crudBottom'></div>
+        {/* <div className='crud'></div> */}
       </div>
     </>
   )
