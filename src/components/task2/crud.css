@@ -1,13 +1,12 @@
-.notesH1 {
-  margin: 0;
-}
-
 #crudTitle {
   display: flex;
-  
 }
 
-.update {
+#allNotes {
+  min-height: 25px;
+}
+
+#updateBtn {
   margin-left: 20px;
   cursor: pointer;
 }

@@ -9,12 +9,16 @@ h3 {
 
 .task1, .task2 {
   width: 450px;
-  height: 100px;
+  min-height: 100px;
   
   border: 1px solid black;
   border-radius: 5px;
 
   padding: 10px;
+}
+
+.titleTask {
+  margin: 0;
 }
 
 /* .h5 {
