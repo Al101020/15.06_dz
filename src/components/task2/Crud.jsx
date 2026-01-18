@@ -15,13 +15,13 @@ const fetchGet = () => fetch('http://localhost:7070/notes')
     console.error('Ошибка при выполнении запроса:', error);
   });
 
-function handleSubmit(e) {
-  e.preventDefault();
-  console.log('Клик кнопка Добавить');
-};
-
 function Crud() {
   // fetchGet();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log('Клик кнопка Добавить Note');
+  };
 
   return (
     <>
@@ -37,8 +37,8 @@ function Crud() {
           <div>New Note</div>
           <div>
             <form onSubmit={handleSubmit}>
-              <textarea name="comment" rows="5" cols="45"></textarea><br></br>
-              <input type="submit" name="submitInfo" value="Отправить"></input>
+              <textarea name="newNote" rows="5" cols="45"></textarea><br></br>
+              <input type="submit" name="newNote" value="Добавить"></input>
             </form>
           </div>
         </div>

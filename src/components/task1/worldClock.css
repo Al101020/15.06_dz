@@ -1,5 +1,14 @@
+#formWC {
+  display: flex;
+  width: 350px;
+}
+
 #wcTitle {
   max-width: 150px;
+}
+
+#wcTimeZone {
+  max-width: 200px;
 }
 
 input[type="text"] {
