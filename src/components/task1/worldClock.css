@@ -14,3 +14,9 @@
 input[type="text"] {
   width: 100px;
 }
+
+#allWc {
+  min-height: 10px;
+  background-color: bisque;
+  margin-top: 15px;
+}
