@@ -20,3 +20,7 @@ input[type="text"] {
   background-color: bisque;
   margin-top: 15px;
 }
+
+.divClock {
+  display: flex;
+}

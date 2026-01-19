@@ -1,30 +1,47 @@
 import './worldClock.css';
-import React, {useState } from 'react';
-import moment from 'moment';
-import moment_timezone from 'moment-timezone';
-
-const clock = () => {
-  const clockMoment = moment().utcOffset(0).format("HH:mm:ss");
-
-  return clockMoment;
-}
+import { useEffect, useState } from 'react';
+import moment from 'moment'; // import moment_timezone from 'moment-timezone';
 
 function WorldClock() {
   const [title, setTitle] = useState('');
   const [timeZone, setTimeZone] = useState('');
+
+  // let valueInputTitle = document.querySelector('#title');
+
+  // useEffect(() => {
+  //   console.log(valueInputTitle);
+  // }, [valueInputTitle]);
+
+  const clock0 = () => { //(title, timeZone)
+    const clockMoment = moment().utcOffset(0).format("HH:mm:ss");
+    
+    return clockMoment;
+  }
   
   function handleSubmit(e) {
-    e.preventDefault();
-    console.log('Клик кнопка Добавить Часы');
+    e.preventDefault();    // console.log('Клик кнопка Добавить Часы');
+
+    // const valueInputTitle = document.querySelector('#title');
+    console.log(title);
+    const valueTitle = title;
+    console.log(timeZone);
+
     setTitle('');
     setTimeZone('');
 
-    console.log(clock());
-
-
+    let timeLondon = clock0();
+    
     const allWc = document.querySelector('#allWc');
-    const divClock = document.createElement('div');
-    divClock.textContent = {clock}.toString();
+      const divClock = document.createElement('div');
+      divClock.classList.add('divClock');
+        const clockTitle = document.createElement('div');
+        clockTitle.classList.add('clockTitle');
+        clockTitle.textContent = valueTitle + ' - ';
+        const clock = document.createElement('div');
+        clock.classList.add('clock');
+        clock.textContent = timeLondon;
+      divClock.append(clockTitle);
+      divClock.append(clock);
     allWc.append(divClock);
   };
 
