@@ -3,11 +3,14 @@
 }
 
 #allNotes {
-  min-height: 25px;
+  /* min-height: 25px; */
+  min-height: 10px;
+  background-color: bisque;
+  margin-top: 15px;
+  margin-bottom: 10px;
 }
 
 #updateBtn {
   margin-left: 20px;
   cursor: pointer;
 }
-
