@@ -49,7 +49,7 @@ function WorldClock() {
           <button id="btn-add-WC" onClick={btnAddWc}>Добавить</button>
         </form>
         <div id='allWc'>
-        <AllWc props={allClockWc}/>
+          <AllWc props={allClockWc}/>
         </div>
       </div>
     </>
