@@ -21,37 +21,43 @@
 // }
 
 import './worldClock.css';
-import { useEffect, useState } from 'react';
-import moment from 'moment'; // import moment_timezone from 'moment-timezone';
+import { useEffect, useState } from 'react';// import moment from 'moment'; // import moment_timezone from 'moment-timezone';
 
 import AllWc from './AllWc/AllWc';
-
-const clock0 = () => { //(title, timeZone)
-  const clockMoment = moment().utcOffset(0).format("HH:mm:ss");
-  return clockMoment;
-}
-
 
 function WorldClock() {
   const [title, setTitle] = useState('');
   const [timeZone, setTimeZone] = useState('');
   const [allWClock, setAllWClock] = useState([]);
 
-  function btnAddWc(e) {
-    e.preventDefault();
-    console.log(title);
-    console.log(timeZone);
-
-    const addClock = {
+  const addClock = {
       title: title,
       timeZone: timeZone
     }
-    if (!title && !timeZone) {
-      setAllWClock(addClock);
+
+  function btnAddWc(e) {
+    e.preventDefault();
+    if (title && timeZone) {
+      console.log(allWClock);
+      setAllWClock(allWClock.push(addClock));
+      console.log(allWClock);
+    } else {
+      alert('Нужно заполнить Название и временная зона(от -12 до +12)');
+      return;
     }
-    
     console.log(allWClock);
   }
+  
+    // const handleClick = (e) => {
+    // e.preventDefault();
+    // if (title && timeZone) {
+    //   setAllWClock(addClock);
+    // } else {
+    //   alert('Нужно заполнить Название и временная зона(от -12 до +12)');
+    //   return;
+    // }
+    // console.log(allWClock);
+    // };
 
   return (
     <>
@@ -71,6 +77,7 @@ function WorldClock() {
               placeholder='от -12 до 12' style={{width: '100px'}} required />
             </label>
           </div>
+          {/* <button id="btn-add-WC" onClick={handleClick}>Добавить</button> */}
           <button id="btn-add-WC" onClick={btnAddWc}>Добавить</button>
         </form>
         <div id='allWc'>

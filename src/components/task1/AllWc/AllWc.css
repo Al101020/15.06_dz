@@ -1,0 +1,10 @@
+.divClock {
+  display: flex;
+  /* padding: 0 10px;
+  margin: 5px 0; */
+  border: 1px solid black;
+}
+
+.clock {
+  margin-left: 10px;
+}
