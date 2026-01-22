@@ -22,3 +22,6 @@ input[type="text"] {
   padding: 0 10px;
 }
 
+#btn-add-WC {
+  cursor: pointer;
+}

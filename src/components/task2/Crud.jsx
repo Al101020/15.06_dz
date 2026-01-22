@@ -38,7 +38,7 @@ function Crud() {
           <div>
             <form onSubmit={handleSubmit}>
               <textarea name="newNote" rows="5" cols="45"></textarea><br></br>
-              <input type="submit" name="newNote" value="Добавить"></input>
+              <input type="submit" name="newNote" id="newNote" value="Добавить"></input>
             </form>
           </div>
         </div>

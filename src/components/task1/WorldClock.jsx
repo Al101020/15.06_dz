@@ -1,7 +1,6 @@
 import './worldClock.css';
-import { useEffect, useState } from 'react';// import moment from 'moment'; 
-  // import moment_timezone from 'moment-timezone';
-  // useEffect(() => {}, []);
+// import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import AllWc from './AllWc/AllWc';
 
 function WorldClock() {
@@ -16,9 +15,9 @@ function WorldClock() {
         title: title,
         timeZone: timeZone
       };
-      console.log(addClock);
+      // console.log(addClock); // Проверка
       setAllClockWc(allClockWc => [...allClockWc, addClock]);
-      console.log(allClockWc);
+      // console.log(allClockWc);; // Проверка
     } else {
       alert('Нужно заполнить Название и временная зона(от -12 до +12)');
       return;
@@ -49,7 +48,7 @@ function WorldClock() {
           <button id="btn-add-WC" onClick={btnAddWc}>Добавить</button>
         </form>
         <div id='allWc'>
-        <AllWc props={allClockWc}/>
+          <AllWc props={allClockWc} />
         </div>
       </div>
     </>
