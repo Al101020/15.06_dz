@@ -1,38 +1,30 @@
+import { useState } from 'react';
 import { v4 as uuidv4 } from "uuid";
-
 import './AllWc.css';
-// import { useEffect, useState } from 'react';
+
 
 const Clock = (props) => {
-  console.log('функция: Clock');
-  console.log(props);
-  const propsClock = props.props;
-  // const title = propsClock[0];
-  // const clock = propsClock[1];
+  // console.log('функция: Clock');
+  const [propsClock, setPropsClock] = useState(props.props);
   console.log(propsClock);
-  console.log(propsClock[0]);
-  // console.log(title);
-  // console.log(clock);
-  // console.log(title + ' - ' + clock);
   return (
     <>
       <div className='divClock'>
-        {/* <div className='clockTitle'>{title}</div>
-        <div className='clock'>{clock}</div> */}
+        <div className='clockTitle'>{propsClock.title}</div>
+        <div className='clock'>{propsClock.timeZone}</div>
       </div>
     </>
   )
 };
 
-function AllWc(props) {     // console.log('функция: AllWc');
+function AllWc(props) {  // console.log(props.props);  // console.log('функция: AllWc');
   const propsAllWc = props.props;
-  // console.log(propsAllWc);
   const index = uuidv4();
 
   return (
     <>
       {propsAllWc.map((obj, index) => (
-        <Clock key={index} props={propsAllWc} />
+        <Clock key={index} props={obj} />
       ))}
     </>
   );

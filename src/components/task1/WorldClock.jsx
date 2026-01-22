@@ -14,10 +14,8 @@ function WorldClock() {
       const addClock = {
         title: title,
         timeZone: timeZone
-      };
-      // console.log(addClock); // Проверка
-      setAllClockWc(allClockWc => [...allClockWc, addClock]);
-      // console.log(allClockWc);; // Проверка
+      };      // console.log(addClock); // Проверка
+      setAllClockWc(allClockWc => [...allClockWc, addClock]);// console.log(allClockWc);// Проверка
     } else {
       alert('Нужно заполнить Название и временная зона(от -12 до +12)');
       return;
