@@ -26,7 +26,6 @@ input[type="text"] {
   cursor: pointer;
 }
 
-
 .divClock {
   display: flex;
   padding: 5px 10px;
@@ -47,6 +46,3 @@ input[type="text"] {
   padding: 0 10px;
 }   /* flex-grow, flex-shrink, flex-basis */
 
-.idUU {
-  display: none;
-}
