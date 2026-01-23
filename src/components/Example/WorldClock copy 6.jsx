@@ -2,23 +2,18 @@ import './worldClock.css';
 // import { useEffect, useState } from 'react';
 import { useState } from 'react';
 // import AllWc from './AllWc/AllWc';
-import { v4 as uuidv4 } from "uuid";
-
 
 function WorldClock() {
   const [title, setTitle] = useState('');
   const [timeZone, setTimeZone] = useState('');
   const [allClockWc, setAllClockWc] = useState([]);
 
-  const indexUU = () => uuidv4();
-
   const btnAddWc = (e) => {
     e.preventDefault();
     if (title && timeZone) {
       const addClock = {
         title: title,
-        timeZone: timeZone,
-        idUU: indexUU()
+        timeZone: timeZone
       };      // console.log(addClock); // Проверка
       setAllClockWc(allClockWc => [...allClockWc, addClock]);// console.log(allClockWc);// Проверка
     } else {
@@ -28,21 +23,19 @@ function WorldClock() {
 
     setTitle('');
     setTimeZone('');
-
-    console.log(allClockWc);
   }
 
 
   function AllWc() {  
     // console.log(props.props);  // console.log('функция: AllWc');
-    // const propsAllWc = props.props[0];
-    // const setAllClockWc = props.props[1];
-    // const indexUU = () => uuidv4();
+    const propsAllWc = props.props[0];
+    const setAllClockWc = props.props[1];
+    const indexUU = () => uuidv4();
 
     return (
       <>
-        {allClockWc.map((obj, index) => (
-          <Clock key={index} props={[obj, index]} />
+        {propsAllWc.map((obj, index) => (
+          <Clock key={index} props={[obj, index, propsAllWc, setAllClockWc]} />
         ))}
       </>
     );
@@ -50,16 +43,16 @@ function WorldClock() {
 
 
   const Clock = (props) => {  //   console.log('функция: Clock');
-    // console.log(props.props);
+  //   console.log(props.props);
     const [propsClock, setPropsClock] = useState(props.props);   // console.log(propsClock);
 
-    function delClock(e) {
+    const delClock = () => {
       console.log('Кнопка Удалить Часы');
-      // console.log(propsClock);
-      // console.log(propsClock[2]);
-      // console.log(propsClock[3]);
-      // const setAllClockWc = propsClock[3];
-      console.log(e.target.parentElement.children[3].textContent);
+      console.log(propsClock);
+      console.log(propsClock[2]);
+      console.log(propsClock[3]);
+      const setAllClockWc = propsClock[3];
+      
     };
 
     return (
@@ -68,7 +61,6 @@ function WorldClock() {
           <div className='clockTitle'>{propsClock[0].title}</div>
           <div className='clock'>{propsClock[0].timeZone}</div>
           <button onClick={delClock}>Удалить</button>
-          <div className='idUU'>{propsClock[0].idUU}</div>
         </div>
       </>
     )
@@ -98,7 +90,7 @@ function WorldClock() {
           <button id="btn-add-WC" onClick={btnAddWc}>Добавить</button>
         </form>
         <div id='allWc'>
-          <AllWc />
+          <AllWc props={[allClockWc, setAllClockWc]} />
         </div>
       </div>
     </>
