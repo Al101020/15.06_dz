@@ -52,7 +52,7 @@ function WorldClock() {
       }, 1000);
     }, [timeWc]); // console.log(timeWc);
 
-    function delClock(e) {
+    function delClock() {
       const newAllClockWc = allClockWc.filter(wc => wc.idUU !== propsClock.idUU);
       setAllClockWc(newAllClockWc);
     };
