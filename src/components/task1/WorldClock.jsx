@@ -1,7 +1,6 @@
 import './worldClock.css';
 import { useEffect, useState } from 'react';
-// import { useState } from 'react';
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment';
 
 function WorldClock() {
@@ -9,12 +8,9 @@ function WorldClock() {
   const [timeZone, setTimeZone] = useState('');
   const [allClockWc, setAllClockWc] = useState([]);
 
-  // setInterval(setAllClockWc(allClockWc), 1000);
-
-  const indexUU = () => uuidv4();
-    // console.log(timeZone);
+  const indexUU = () => uuidv4();    // console.log(timeZone);
   const time = (timeZone) => {
-    const clockMoment = moment().utcOffset(Number(timeZone)).format("HH:mm:ss");
+    const clockMoment = moment().utcOffset(Number(timeZone)).format('HH:mm:ss');
     return clockMoment;
   }
 
@@ -26,14 +22,6 @@ function WorldClock() {
         timeZone: timeZone,
         idUU: indexUU()
       };      // console.log(addClock); // Проверка
-
-    // if (title && timeZone) {
-    //   const addClock = {
-    //     title: title,
-    //     timeZone: timeZone,
-    //     idUU: indexUU(),
-    //     time: time(timeZone)
-    //   };      // console.log(addClock); // Проверка
       setAllClockWc(allClockWc => [...allClockWc, addClock]);// console.log(allClockWc);// Проверка
     } else {
       alert('Нужно заполнить Название и Временная зона(от -12 до +12)');
@@ -62,9 +50,7 @@ function WorldClock() {
       setInterval(() => {
         setTimeWc(time( Number(propsClock.timeZone) ));
       }, 1000);
-    }, [timeWc]);
-    
-    // console.log(timeWc);
+    }, [timeWc]); // console.log(timeWc);
 
     function delClock(e) {
       const newAllClockWc = allClockWc.filter(wc => wc.idUU !== propsClock.idUU);
@@ -93,12 +79,12 @@ function WorldClock() {
           </div>
           <div id='wcTimeZone'>
             <label>Временная зона
-              <input type='number' min='-12' max="12" name='timeZone'  id='timeZone' 
+              <input type='number' min='-12' max='12' name='timeZone'  id='timeZone' 
               value={timeZone} onChange={(e) => setTimeZone(e.target.value)} 
               placeholder='от -12 до 12' style={{width: '100px'}} required />
             </label>
           </div>
-          <button id="btn-add-WC" onClick={btnAddWc}>Добавить</button>
+          <button id='btn-add-WC' onClick={btnAddWc}>Добавить</button>
         </form>
         <div id='allWc'>
           <AllWc />

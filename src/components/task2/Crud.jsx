@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import './crud.css';
 
 const fetchGet = () => fetch('http://localhost:7070/notes')
@@ -16,11 +17,17 @@ const fetchGet = () => fetch('http://localhost:7070/notes')
   });
 
 function Crud() {
+  const [NewNote, setNewNote] = useState([]);
+  const [allNotes, setAllNotes] = useState([]);
   // fetchGet();
 
-  function handleSubmit(e) {
+  const addNote = (e) => {
     e.preventDefault();
-    console.log('Клик кнопка Добавить Note');
+    console.log('Клик кнопка Добавить New Note');
+    console.log(NewNote);
+
+  setNewNote('');
+
   };
 
   return (
@@ -36,9 +43,11 @@ function Crud() {
         <div id='crudBottom'>
           <div>New Note</div>
           <div>
-            <form onSubmit={handleSubmit}>
-              <textarea name="newNote" rows="5" cols="45"></textarea><br></br>
-              <input type="submit" name="newNote" id="newNote" value="Добавить"></input>
+            <form>
+              <textarea name='textareaNewNote' id='textareaNewNote' rows='5' cols='45'
+              value={NewNote} onChange={(e) => setNewNote(e.target.value)} required></textarea>
+              <br />
+              <button name='addNote' id='addNote' onClick={addNote}>Добавить</button>
             </form>
           </div>
         </div>
