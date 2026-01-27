@@ -1,49 +1,68 @@
 import { useEffect, useState } from 'react';
-// import { useState } from 'react';
 import './crud.css';
-// import { v4 as uuidv4 } from 'uuid';
-
-// const idUU = () => uuidv4();
-// const indexUU = () => uuidv4();
-
-const fetchGet = () => fetch('http://localhost:7070/notes')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP ошибка! Код: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(data => {
-    // console.log('Клик кнопка Обновить');
-    console.log(data);
-    return data;
-  })
-  .catch(error => {
-    console.error('Ошибка при выполнении запроса: ', error);
-  });
-
-const fetchPost = async (textNewNote) => {
-  let bodyFetchPost = {
-    id: '',
-    content: textNewNote
-  };
-  const response = await fetch('http://localhost:7070/notes', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(bodyFetchPost)
-  });
-  let result = await response;
-  console.log(result);
-  
-};
 
 function Crud() {
   const [NewNote, setNewNote] = useState('');
   const [allNotes, setAllNotes] = useState([]);
 
-  const updateNotes = async() => {
-    const resultFetchGet = await fetchGet();
-    setAllNotes(resultFetchGet);
+  const Notes = (props) => {
+    const [propsNote, setPropsNote] = useState(props.props);
+    const contentNote = propsNote.content;
+
+    const delNote = () => {
+      console.log('delNote');
+      const newAllNotes = allNotes.filter(objNote => objNote.id !== propsNote.id);
+      setAllNotes(newAllNotes);
+    };
+    return (
+      <>
+        <div className='note'>
+          <div className='delNote' onClick={delNote}></div>
+          <div className='content'>{contentNote}</div>
+        </div>
+      </>
+    );
+  }
+
+  const ShowAllNotes = (props) => {// console.log(props);
+    const showAllNotes = props.props;// console.log(showAllNotes);
+    return (
+      <>
+        {showAllNotes.map((obj, index) => (
+          <Notes key={index} props={obj} />
+        ))}
+      </>
+    );
+  }
+
+  const fetchPost = async (textNewNote) => {
+    let bodyFetchPost = {
+      id: '',
+      content: textNewNote
+    };
+    const response = await fetch('http://localhost:7070/notes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(bodyFetchPost)
+    });  // let result = await response;   // console.log(result);
+  };
+
+  const fetchGet = () => fetch('http://localhost:7070/notes')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP ошибка! Код: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {// console.log('Клик кнопка Обновить');// console.log(data);
+      setAllNotes(data);    // return data;
+    })
+    .catch(error => {
+      console.error('Ошибка при выполнении запроса: ', error);
+    });
+
+  const updateNotes = async(e) => {
+    fetchGet();    // const resultFetchGet = await fetchGet();
   };
 
   const addNewNote = (e) => {
@@ -53,11 +72,12 @@ function Crud() {
     } else {
       fetchPost(NewNote);
     }
-    setNewNote('');
+    setNewNote('');     // console.log(e.target);
   };
 
   // useEffect(() => {
   //   console.log(allNotes);
+  //   // ShowAllNotes(allNotes);
   // }, [allNotes]);
 
   return (
@@ -69,7 +89,9 @@ function Crud() {
           </div>
           <button id='updateBtn' onClick={updateNotes}>Обнавить</button>
         </div>
-        <div id='allNotes'></div>
+        <div id='divAllNotes'>
+          <ShowAllNotes props={allNotes} />
+        </div>
         <div id='crudBottom'>
           <div>New Note</div>
           <div>
