@@ -8,11 +8,13 @@ function Crud() {
   const Notes = (props) => {
     const [propsNote, setPropsNote] = useState(props.props);
     const contentNote = propsNote.content;
+    const idNote = propsNote.id;
 
     const delNote = () => {
       console.log('delNote');
       const newAllNotes = allNotes.filter(objNote => objNote.id !== propsNote.id);
       setAllNotes(newAllNotes);
+      fetchPostDel(idNote);
     };
     return (
       <>
@@ -35,6 +37,13 @@ function Crud() {
     );
   }
 
+  const fetchPostDel = async (idNote) => {// app.delete("/notes/:id"
+    fetch('http://localhost:7070/notes/:' + idNote, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+  };
+
   const fetchPost = async (textNewNote) => {
     let bodyFetchPost = {
       id: '',
@@ -44,7 +53,7 @@ function Crud() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(bodyFetchPost)
-    });  // let result = await response;   // console.log(result);
+    });
   };
 
   const fetchGet = () => fetch('http://localhost:7070/notes')
