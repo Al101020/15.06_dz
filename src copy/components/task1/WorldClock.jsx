@@ -2,21 +2,12 @@ import './worldClock.css';
 import { useEffect, useState } from 'react';
 
 import { indexUU } from './indexUU';
-import time0 from './time0';
-import AllWc from './AllWc';
+import { time } from './time';
 
 function WorldClock() {
   const [title, setTitle] = useState('');
   const [timeZone, setTimeZone] = useState('');
   const [allClockWc, setAllClockWc] = useState([]);
-
-  const clockTZ0 = time0();  // console.log(clockTZ0);
-  const [clockTimeZone0, setClockTimeZone0] = useState(clockTZ0);
-
-  const delClock = (id) => {
-    const newAllClockWc = allClockWc.filter(wc => wc.idUU !== id);
-    setAllClockWc(newAllClockWc);
-  };
 
   const btnAddWc = (e) => {
     e.preventDefault();
@@ -24,9 +15,7 @@ function WorldClock() {
       const addClock = {
         title: title,
         timeZone: timeZone,
-        time0: clockTimeZone0,
-        idUU: indexUU(),
-        delClock: {delClock}
+        idUU: indexUU()
       };
       setAllClockWc(allClockWc => [...allClockWc, addClock]);
     } else {
@@ -37,6 +26,57 @@ function WorldClock() {
     setTitle('');
     setTimeZone('');
   }
+
+  function AllWc() {
+    return (
+      <>
+        {allClockWc.map((obj, index) => (
+          <Clock key={index} props={obj} setAllClockWc/>
+        ))}
+      </>
+    );
+  };
+
+  // function AllWc() {
+  //   const arrAllClockWc = [];
+  //   allClockWc.forEach((obj) => {
+      
+  //   });
+  //   return (
+  //     <>
+  //       {allClockWc.map((obj, index) => (
+  //         <Clock key={index} props={obj} />
+  //       ))}
+  //     </>
+  //   );
+  // };
+
+  const Clock = (props) => {
+    console.log(props);
+    const [propsClock, setPropsClock] = useState(props.props);
+    const [timeWc, setTimeWc] = useState(0);
+    
+    useEffect(() => {
+      setInterval(() => {
+        setTimeWc(time( Number(propsClock.timeZone) ));
+      }, 1000);
+    }, [timeWc]); // console.log(timeWc);
+
+    function delClock() {
+      const newAllClockWc = allClockWc.filter(wc => wc.idUU !== propsClock.idUU);
+      setAllClockWc(newAllClockWc);
+    };
+    
+    return (
+      <>
+        <div className='divClock'>
+          <div className='clockTitle'>{propsClock.title}</div>
+          <div className='clock'>{timeWc}</div>
+          <button onClick={delClock}>Удалить</button>
+        </div>
+      </>
+    )
+  };
 
   return (
     <>
@@ -59,7 +99,7 @@ function WorldClock() {
           <button id='btn-add-WC' onClick={btnAddWc}>Добавить</button>
         </form>
         <div id='allWc'>
-          <AllWc propsAllClockWc={allClockWc} funcDelClock={delClock} />
+          <AllWc />
         </div>
       </div>
     </>

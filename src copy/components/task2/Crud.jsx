@@ -1,79 +1,50 @@
 import { useEffect, useState } from 'react';
 import './crud.css';
-// import { fetchPost } from './fetchPost';
-import ShowAllNotes from './ShowAllNotes'
-// const fetchPost
-
-
-
 
 function Crud() {
   const [NewNote, setNewNote] = useState('');
   const [allNotes, setAllNotes] = useState([]);
 
+  const Notes = (props) => {
+    const [propsNote, setPropsNote] = useState(props.props);
+    const contentNote = propsNote.content;
+    const idNote = propsNote.id;
+
+    const delNote = () => {
+      console.log('delNote');
+      const newAllNotes = allNotes.filter(objNote => objNote.id !== propsNote.id);
+      setAllNotes(newAllNotes);
+      fetchDel(idNote);
+    };
+    return (
+      <>
+        <div className='note'>
+          <div className='delNote' onClick={delNote}></div>
+          <div className='content'>{contentNote}</div>
+        </div>
+      </>
+    );
+  }
+
+  const ShowAllNotes = (props) => {// console.log(props);
+    const showAllNotes = props.props;// console.log(showAllNotes);
+    return (
+      <>
+        {showAllNotes.map((obj, index) => (
+          <Notes key={index} props={obj} />
+        ))}
+      </>
+    );
+  }
+
+  
   const fetchDel = async (idNote) => {// app.delete("/notes/:id"
     fetch('http://localhost:7070/notes/' + idNote, { method: 'DELETE' });
   };
 
-  const delNote = (idNote) => {
-    console.log('delNote');
-    const newAllNotes = allNotes.filter(objNote => objNote.id !== idNote);
-    setAllNotes(newAllNotes);
-    fetchDel(idNote);
-  };
-
-  // const Notes = (props) => {
-  //   const [propsNote, setPropsNote] = useState(props.props);
-  //   const contentNote = propsNote.content;
-  //   const idNote = propsNote.id;
-
-  //   const delNote = () => {
-  //     console.log('delNote');
-  //     const newAllNotes = allNotes.filter(objNote => objNote.id !== propsNote.id);
-  //     setAllNotes(newAllNotes);
-  //     fetchDel(idNote);
-  //   };
-  //   return (
-  //     <>
-  //       <div className='note'>
-  //         <div className='delNote' onClick={delNote}></div>
-  //         <div className='content'>{contentNote}</div>
-  //       </div>
-  //     </>
-  //   );
-  // }
-
-  // const ShowAllNotes = (props) => {// console.log(props);
-  //   const showAllNotes = props.props;// console.log(showAllNotes);
-  //   return (
-  //     <>
-  //       {showAllNotes.map((obj, index) => (
-  //         <Notes key={index} props={obj} />
-  //       ))}
-  //     </>
-  //   );
-  // };
-
-  
-  // const fetchDel = async (idNote) => {// app.delete("/notes/:id"
-  //   fetch('http://localhost:7070/notes/' + idNote, { method: 'DELETE' });
-  // };
-
-  // const fetchPost = async (textNewNote) => {
-  //   let bodyFetchPost = {
-  //     id: '',
-  //     content: textNewNote
-  //   };
-  //   const response = await fetch('http://localhost:7070/notes', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(bodyFetchPost)
-  //   });
-  // };
-
   const fetchPost = async (textNewNote) => {
     let bodyFetchPost = {
-      id: 0,
+      id: '',
       content: textNewNote
     };
     const response = await fetch('http://localhost:7070/notes', {
@@ -83,8 +54,7 @@ function Crud() {
     });
   };
 
-  const fetchGet = () => {
-    fetch('http://localhost:7070/notes')
+  const fetchGet = () => fetch('http://localhost:7070/notes')
     .then(response => {
       if (!response.ok) {
         throw new Error(`HTTP ошибка! Код: ${response.status}`);
@@ -97,10 +67,9 @@ function Crud() {
     .catch(error => {
       console.error('Ошибка при выполнении запроса: ', error);
     });
-  };
 
   const updateNotes = async() => {
-    // console.log('стрелочная функция - updateNotes');
+    console.log('стрелочная функция - updateNotes');
     fetchGet();    // const resultFetchGet = await fetchGet();
   };
 
@@ -112,12 +81,16 @@ function Crud() {
       fetchPost(NewNote);
     }
     setNewNote('');     // console.log(e.target);
-    updateNotes();
   };
   
+
   useEffect(() => {
     updateNotes();
   }, []);
+
+  // useEffect(() => {
+  //   updateNotes();
+  // }, [allNotes]);
 
   return (
     <>
@@ -129,7 +102,7 @@ function Crud() {
           <button id='updateBtn' onClick={updateNotes}>Обнавить</button>
         </div>
         <div id='divAllNotes'>
-          <ShowAllNotes props={allNotes} funcDel={delNote} />
+          <ShowAllNotes props={allNotes} />
         </div>
         <div id='crudBottom'>
           <div>New Note</div>
