@@ -1,75 +1,23 @@
 import { useEffect, useState } from 'react';
 import './crud.css';
-// import { fetchPost } from './fetchPost';
 import ShowAllNotes from './ShowAllNotes'
-// const fetchPost
-
-
-
 
 function Crud() {
   const [NewNote, setNewNote] = useState('');
   const [allNotes, setAllNotes] = useState([]);
 
-  const fetchDel = async (idNote) => {// app.delete("/notes/:id"
+  const fetchDel = async (idNote) => {
     fetch('http://localhost:7070/notes/' + idNote, { method: 'DELETE' });
   };
 
   const delNote = (idNote) => {
     console.log('delNote');
+    console.log(idNote);
+    console.log(allNotes);
     const newAllNotes = allNotes.filter(objNote => objNote.id !== idNote);
     setAllNotes(newAllNotes);
     fetchDel(idNote);
   };
-
-  // const Notes = (props) => {
-  //   const [propsNote, setPropsNote] = useState(props.props);
-  //   const contentNote = propsNote.content;
-  //   const idNote = propsNote.id;
-
-  //   const delNote = () => {
-  //     console.log('delNote');
-  //     const newAllNotes = allNotes.filter(objNote => objNote.id !== propsNote.id);
-  //     setAllNotes(newAllNotes);
-  //     fetchDel(idNote);
-  //   };
-  //   return (
-  //     <>
-  //       <div className='note'>
-  //         <div className='delNote' onClick={delNote}></div>
-  //         <div className='content'>{contentNote}</div>
-  //       </div>
-  //     </>
-  //   );
-  // }
-
-  // const ShowAllNotes = (props) => {// console.log(props);
-  //   const showAllNotes = props.props;// console.log(showAllNotes);
-  //   return (
-  //     <>
-  //       {showAllNotes.map((obj, index) => (
-  //         <Notes key={index} props={obj} />
-  //       ))}
-  //     </>
-  //   );
-  // };
-
-  
-  // const fetchDel = async (idNote) => {// app.delete("/notes/:id"
-  //   fetch('http://localhost:7070/notes/' + idNote, { method: 'DELETE' });
-  // };
-
-  // const fetchPost = async (textNewNote) => {
-  //   let bodyFetchPost = {
-  //     id: '',
-  //     content: textNewNote
-  //   };
-  //   const response = await fetch('http://localhost:7070/notes', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(bodyFetchPost)
-  //   });
-  // };
 
   const fetchPost = async (textNewNote) => {
     let bodyFetchPost = {
@@ -99,8 +47,7 @@ function Crud() {
     });
   };
 
-  const updateNotes = async() => {
-    // console.log('стрелочная функция - updateNotes');
+  const updateNotes = async() => {    // console.log('стрелочная функция - updateNotes');
     fetchGet();    // const resultFetchGet = await fetchGet();
   };
 

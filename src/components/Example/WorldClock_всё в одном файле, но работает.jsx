@@ -1,13 +1,18 @@
 import './worldClock.css';
 import { useEffect, useState } from 'react';
-
-import { indexUU } from './indexUU';
-import { time } from './time';
+import { v4 as uuidv4 } from 'uuid';
+import moment from 'moment';
 
 function WorldClock() {
   const [title, setTitle] = useState('');
   const [timeZone, setTimeZone] = useState('');
   const [allClockWc, setAllClockWc] = useState([]);
+
+  const indexUU = () => uuidv4();    // console.log(timeZone);
+  const time = (timeZone) => {
+    const clockMoment = moment().utcOffset(Number(timeZone)).format('HH:mm:ss');
+    return clockMoment;
+  }
 
   const btnAddWc = (e) => {
     e.preventDefault();
@@ -16,8 +21,8 @@ function WorldClock() {
         title: title,
         timeZone: timeZone,
         idUU: indexUU()
-      };
-      setAllClockWc(allClockWc => [...allClockWc, addClock]);
+      };      // console.log(addClock); // Проверка
+      setAllClockWc(allClockWc => [...allClockWc, addClock]);// console.log(allClockWc);// Проверка
     } else {
       alert('Нужно заполнить Название и Временная зона(от -12 до +12)');
       return;
@@ -31,28 +36,13 @@ function WorldClock() {
     return (
       <>
         {allClockWc.map((obj, index) => (
-          <Clock key={index} props={obj} setAllClockWc/>
+          <Clock key={index} props={obj} />
         ))}
       </>
     );
   };
 
-  // function AllWc() {
-  //   const arrAllClockWc = [];
-  //   allClockWc.forEach((obj) => {
-      
-  //   });
-  //   return (
-  //     <>
-  //       {allClockWc.map((obj, index) => (
-  //         <Clock key={index} props={obj} />
-  //       ))}
-  //     </>
-  //   );
-  // };
-
-  const Clock = (props) => {
-    console.log(props);
+  const Clock = (props) => {// console.log(props.props);
     const [propsClock, setPropsClock] = useState(props.props);
     const [timeWc, setTimeWc] = useState(0);
     
@@ -66,7 +56,6 @@ function WorldClock() {
       const newAllClockWc = allClockWc.filter(wc => wc.idUU !== propsClock.idUU);
       setAllClockWc(newAllClockWc);
     };
-    
     return (
       <>
         <div className='divClock'>
@@ -77,7 +66,6 @@ function WorldClock() {
       </>
     )
   };
-
   return (
     <>
       <div className='task1'>

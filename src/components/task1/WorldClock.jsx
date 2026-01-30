@@ -13,8 +13,15 @@ function WorldClock() {
   const clockTZ0 = time0();  // console.log(clockTZ0);
   const [clockTimeZone0, setClockTimeZone0] = useState(clockTZ0);
 
-  const delClock = (id) => {
-    const newAllClockWc = allClockWc.filter(wc => wc.idUU !== id);
+  const delClock = (idUU) => {
+    const newAllClockWc = (allClockWc) => {
+      console.log(allClockWc);
+      allClockWc.filter(objClock => {
+        console.log(objClock.idUU);
+        objClock.idUU !== idUU;
+      });
+    }
+    console.log(idUU);
     setAllClockWc(newAllClockWc);
   };
 
@@ -37,6 +44,10 @@ function WorldClock() {
     setTitle('');
     setTimeZone('');
   }
+
+  useEffect(() => {
+    console.log(allClockWc)
+  }), [allClockWc];
 
   return (
     <>

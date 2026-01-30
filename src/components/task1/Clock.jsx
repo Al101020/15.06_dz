@@ -6,9 +6,10 @@ function Clock(props) {// console.log(props);//console.log(props.objClock.idUU);
   const [time, setTime] = useState(props.objClock.time0.utcOffset(Number(timeZoneClock))
     .format('HH:mm:ss'));
   const [time0, setTime0] = useState(props.objClock.time0);
-  const idUU = props.objClock.idUU;
+  // const idUU = props.objClock.idUU;
   // console.log(idUU);
-  const funcDelClock = props.objClock.delClock.delClock;  //  console.log(funcDelClock);
+  const funcDelClock = props.objClock.delClock.delClock;  
+   console.log(funcDelClock);
 
   useEffect(() => {
     const time = time0.utcOffset(Number(timeZoneClock)).format('HH:mm:ss');
