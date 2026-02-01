@@ -1,14 +1,21 @@
+import moment from 'moment';
 import Clock from './Clock';
 
-const AllWc = (props) => {
-  // console.log(props);
-  // console.log(props.propsAllClockWc);
+const AllWc = (props) => {  
+  console.log(props);  // console.log(props.propsAllClockWc);
   if (props.propsAllClockWc === undefined) {
     return;
   }
 
   const allClockWc = props.propsAllClockWc;
   const setAllClockWc = props.propsSetAllClockWc;
+  // const time0 = props.time0().utcOffset(Number(timeZone)).format('HH:mm:ss');
+
+  // const time = (timeZone) => {
+  //   const clockMoment = moment().utcOffset(Number(timeZone)).format('HH:mm:ss');
+  //   return clockMoment;
+  // }
+
 
   const delClock = (e) => {
     const divIdUU = e.target.previousElementSibling; // получил div с idUU
@@ -22,7 +29,6 @@ const AllWc = (props) => {
             // Slice
     const indexObjDel = allClockWc.findIndex(objClock => objClock.idUU === idUU);
     console.log(indexObjDel);
-    // const deleted = people.splice(3);
     const newAllClockWc = allClockWc.splice(indexObjDel, 1);
     console.log(newAllClockWc);
     
@@ -33,7 +39,8 @@ const AllWc = (props) => {
   return (
     <>
       {props.propsAllClockWc.map((obj, index) => (
-        <Clock key={index} objClock={obj} functionDelClock={delClock} />
+        <Clock key={index} objClock={obj} functionDelClock={delClock}
+          time={moment().utcOffset(Number(obj.timeZone)).format('HH:mm:ss')} />
       ))}
     </>
   );

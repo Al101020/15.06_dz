@@ -19,10 +19,6 @@ function Crud() {
     console.log(idUUNote);    // console.log(idNote);
 
     console.log(allNotes);
-    // const newAllNotes = allNotes.filter(objNote => objNote.id !== idUUNote);
-    // console.log(newAllNotes);
-        // setAllNotes(newAllNotes);
-          // const idx = items.findIndex(obj => obj.name === 'Bob');
     const ObjNoteIdUU = allNotes.find(objNote => objNote.idUU === idUUNote);
     console.log(ObjNoteIdUU);
     const idObjNote = ObjNoteIdUU.id;
@@ -52,9 +48,9 @@ function Crud() {
       }
       return response.json();
     })
-    .then(data => {// console.log('Клик кнопка Обновить');
+    .then(data => {
       console.log(data);
-      setAllNotes(data);    // return data;
+      setAllNotes(data);
     })
     .catch(error => {
       console.error('Ошибка при выполнении запроса: ', error);
@@ -62,7 +58,7 @@ function Crud() {
   };
 
   const updateNotes = async() => {    // console.log('стрелочная функция - updateNotes');
-    fetchGet();    // const resultFetchGet = await fetchGet();
+    fetchGet()
   };
 
   const addNewNote = (e) => {
@@ -72,7 +68,7 @@ function Crud() {
     } else {
       fetchPost(NewNote);
     }
-    setNewNote('');     // console.log(e.target);
+    setNewNote('');
     updateNotes();
   };
   
