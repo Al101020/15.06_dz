@@ -45,7 +45,3 @@ input[type="text"] {
   background-color: rgb(250, 250, 250);
   padding: 0 10px;
 }   /* flex-grow, flex-shrink, flex-basis */
-
-.displayNone {
-  display: none;
-}

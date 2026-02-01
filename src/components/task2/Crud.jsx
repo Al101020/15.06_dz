@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './crud.css';
 import ShowAllNotes from './ShowAllNotes'
+import { indexUU } from './indexUU';
 
 function Crud() {
   const [NewNote, setNewNote] = useState('');
@@ -11,19 +12,29 @@ function Crud() {
     fetch('http://localhost:7070/notes/' + idNote, { method: 'DELETE' });
   };
 
-  const delNote = (idNote) => {
+  const delNote = (e) => {
     console.log('delNote');
-    console.log(idNote);
+    const divIdUUNote = e.target.previousElementSibling;
+    const idUUNote = divIdUUNote.textContent;
+    console.log(idUUNote);    // console.log(idNote);
+
     console.log(allNotes);
-    const newAllNotes = allNotes.filter(objNote => objNote.id !== idNote);
-    console.log(newAllNotes);
-    // setAllNotes(newAllNotes);
-    fetchDel(idNote);
+    // const newAllNotes = allNotes.filter(objNote => objNote.id !== idUUNote);
+    // console.log(newAllNotes);
+        // setAllNotes(newAllNotes);
+          // const idx = items.findIndex(obj => obj.name === 'Bob');
+    const ObjNoteIdUU = allNotes.find(objNote => objNote.idUU === idUUNote);
+    console.log(ObjNoteIdUU);
+    const idObjNote = ObjNoteIdUU.id;
+
+    fetchDel(idObjNote);
+    updateNotes();
   };
 
   const fetchPost = async (textNewNote) => {
     let bodyFetchPost = {
       id: 0,
+      idUU: indexUU(),
       content: textNewNote
     };
     const response = await fetch('http://localhost:7070/notes', {
@@ -41,7 +52,8 @@ function Crud() {
       }
       return response.json();
     })
-    .then(data => {// console.log('Клик кнопка Обновить');// console.log(data);
+    .then(data => {// console.log('Клик кнопка Обновить');
+      console.log(data);
       setAllNotes(data);    // return data;
     })
     .catch(error => {
@@ -64,9 +76,9 @@ function Crud() {
     updateNotes();
   };
   
-  useEffect(() => {
-    updateNotes();
-  }, []);
+  // useEffect(() => {
+  //   updateNotes();
+  // }, []);
 
   return (
     <>

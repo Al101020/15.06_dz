@@ -15,9 +15,19 @@ const AllWc = (props) => {
     const idUU = divIdUU.textContent;
     console.log(idUU);
     console.log(allClockWc);
-    const newAllClockWc = allClockWc.filter(objClock => objClock.idUU !== idUU);
+            // Filter
+    // const newAllClockWc = allClockWc.filter(objClock => objClock.idUU !== idUU);
+    // console.log(newAllClockWc);
+    // setAllClockWc(newAllClockWc);
+            // Slice
+    const indexObjDel = allClockWc.findIndex(objClock => objClock.idUU === idUU);
+    console.log(indexObjDel);
+    // const deleted = people.splice(3);
+    const newAllClockWc = allClockWc.splice(indexObjDel, 1);
     console.log(newAllClockWc);
+    
     setAllClockWc(newAllClockWc);
+    console.log(allClockWc);
   };
 
   return (
