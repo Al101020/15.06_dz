@@ -38,7 +38,7 @@ function Crud() {
   }
 
   
-  const fetchDel = async (idNote) => {// app.delete("/notes/:id"
+  const fetchDel = async (idNote) => {
     fetch('http://localhost:7070/notes/' + idNote, { method: 'DELETE' });
   };
 

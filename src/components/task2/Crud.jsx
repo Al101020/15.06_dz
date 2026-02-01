@@ -7,6 +7,7 @@ function Crud() {
   const [allNotes, setAllNotes] = useState([]);
 
   const fetchDel = async (idNote) => {
+    console.log('fetchDel');
     fetch('http://localhost:7070/notes/' + idNote, { method: 'DELETE' });
   };
 
@@ -15,7 +16,8 @@ function Crud() {
     console.log(idNote);
     console.log(allNotes);
     const newAllNotes = allNotes.filter(objNote => objNote.id !== idNote);
-    setAllNotes(newAllNotes);
+    console.log(newAllNotes);
+    // setAllNotes(newAllNotes);
     fetchDel(idNote);
   };
 

@@ -6,10 +6,10 @@ function Clock(props) {// console.log(props);//console.log(props.objClock.idUU);
   const [time, setTime] = useState(props.objClock.time0.utcOffset(Number(timeZoneClock))
     .format('HH:mm:ss'));
   const [time0, setTime0] = useState(props.objClock.time0);
-  // const idUU = props.objClock.idUU;
-  // console.log(idUU);
-  const funcDelClock = props.objClock.delClock.delClock;  
-   console.log(funcDelClock);
+  const idUU = props.objClock.idUU;
+  // console.log(props);
+  const funcDelClock = props.functionDelClock;  
+  //  console.log(funcDelClock);
 
   useEffect(() => {
     const time = time0.utcOffset(Number(timeZoneClock)).format('HH:mm:ss');
@@ -21,6 +21,7 @@ function Clock(props) {// console.log(props);//console.log(props.objClock.idUU);
       <div className='divClock'>
         <div className='clockTitle'>{titleClock}</div>
         <div className='clock'>{time}</div>
+        <div className='displayNone'>{idUU}</div>
         {/* <button onClick={funcDelClock(idUU)}>Удалить</button> */}
         <button onClick={funcDelClock}>Удалить</button>
       </div>
