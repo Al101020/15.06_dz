@@ -1,40 +1,29 @@
 import './worldClock.css';
 import { useEffect, useState } from 'react';
 
-import { indexUU } from './indexUU';
-import time0 from './time0';
-import AllWc from './AllWc';
+import { funcUuidv4 } from './uuidv4';
+import funcMoment from './funcMoment';
+import СomponentAllWorldClock from './СomponentAllWorldClock';
 
 function WorldClock() {
   const [title, setTitle] = useState('');
-  const [timeZone, setTimeZone] = useState('');
-  const [allClockWc, setAllClockWc] = useState([]);
+  const [timeZone, setTimeZone] = useState(0);
 
-  const clockTZ0 = time0;
-  // const clockTZ0 = time0(); 
-  //  console.log(clockTZ0);
-  // const [clockTimeZone0, setClockTimeZone0] = useState(clockTZ0);
+  const [allWorldClock, setAllWorldClock ] = useState([]);
+  // const [timeOf0TimeZone, setTimeOf0TimeZone ] = useState(funcTimeZone0());
+  const [funcMomentState, setFuncMomentState ] = useState(funcMoment());
 
-
-  // setInterval(() => {setClockTimeZone0(clockTZ0)}, 1000);
-
-  // useEffect(() => {
-  //   interval = setInterval(() => {
-  //     setClockTimeZone0(clockTZ0);
-  //     console.log(clockTimeZone0)
-  //   }, 1000);
-  // } , [clockTimeZone0]);
-
-  const btnAddWc = (e) => {
+  const btnAddClock = (e) => {
     e.preventDefault();
     if (title && timeZone) {
       const addClock = {
         title: title,
         timeZone: timeZone,
-        // time0: clockTimeZone0, // ------------------------------
-        idUU: indexUU(),        // delClock: {delClock}
+        idUU: funcUuidv4(),
+        // time: timeOf0TimeZone.utcOffset(Number(timeZone)).format('HH:mm:ss')
       };
-      setAllClockWc(allClockWc => [...allClockWc, addClock]);       // console.log(allClockWc); // []
+      console.log(addClock);
+      setAllWorldClock(allWorldClock => [...allWorldClock, addClock]);
     } else {
       alert('Нужно заполнить Название и Временная зона(от -12 до +12)');
       return;
@@ -44,15 +33,39 @@ function WorldClock() {
     setTimeZone('');
   }
 
-  // useEffect(() => {
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFuncMomentState(funcMoment());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // useEffect(
   //   setInterval(() => {
-  //     setClockTimeZone0(time0());
+  //         // console.log(funcTimeZone0());
+  //     const newallWorldClock = {...allWorldClock};
+  //     setAllWorldClock(newallWorldClock);
+  //     // setTimeOf0TimeZone(funcTimeZone0()); // allWorldClock, 
+  //   }, 1000), [allWorldClock]
+  // );
+
+  // useEffect(
+  //   setInterval(() => {
+  //     // console.log(timeOf0TimeZone);
+  //     setTimeOf0TimeZone(funcTimeZone0());
+  //   }, 1000), [timeOf0TimeZone]
+  // );
+  
+  // useEffect(() => {
+  //   const tikTak = setInterval(() => {
+  //     setTimeOf0TimeZone(funcTimeZone0());
   //   }, 1000);
-  //   console.log(allClockWc)
-  //   // setClockTimeZone0(time0());
-  // }), [clockTimeZone0];
-
-
+  //   // очистка интервала
+  //   return () => clearInterval(tikTak);
+  // }, [allWorldClock]);
+  
   return (
     <>
       <div className='task1'>
@@ -71,13 +84,13 @@ function WorldClock() {
               placeholder='от -12 до 12' style={{width: '100px'}} required />
             </label>
           </div>
-          <button id='btn-add-WC' onClick={btnAddWc}>Добавить</button>
+          <button id='btn-add-WC' onClick={btnAddClock}>Добавить</button>
         </form>
         <div id='allWc'>
-          {/* <AllWc propsAllClockWc={allClockWc} funcDelClock={delClock} /> */}
-          <AllWc propsAllClockWc={allClockWc}
-            propsSetAllClockWc={setAllClockWc}
-            propsTime0={clockTZ0} />
+          <СomponentAllWorldClock propsAllWorldClock={allWorldClock}
+            propsSetAllWorldClock={setAllWorldClock}
+            propsFuncMomentState={funcMomentState}
+            propsSetFuncMomentState={setFuncMomentState} /> 
         </div>
       </div>
     </>

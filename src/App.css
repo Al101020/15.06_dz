@@ -1,6 +1,9 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
+  /* padding: 2px 1em 0 1em; */
+  padding: 2px auto;
+  /* margin: 0 0 0 100px; */
 }
 
 h3 {
