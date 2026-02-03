@@ -1,15 +1,15 @@
 import Note from './Note';
 
-const AllNotes = (props) => {
+const Notes = (props) => {
   const funcDel = props.funcDel;
-  const showAllNotes = props.props;
+  const notes = props.props;
   return (
     <>
-      {showAllNotes.map((obj, index) => (
+      {notes.map((obj, index) => (
       <Note key={index} props={obj} funcDel={funcDel} />
       ))}
     </>
   );
 };
 
-export default AllNotes;
+export default Notes;

@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import './crud.css';
-import AllNotes from './AllNotes'
-import { indexUU } from './indexUU';
+import Notes from './Notes';
+import { v4 as uuidv4 } from 'uuid';
 
 function Crud() {
   const [NewNote, setNewNote] = useState('');
-  const [allNotes, setAllNotes] = useState([]);
+  const [notes, setNotes] = useState([]);
 
   const fetchDel = async (idNote) => {
     fetch('http://localhost:7070/notes/' + idNote, { method: 'DELETE' })
     .then(response => {
       if (response.ok) {
         updateNotes();
-      }      // response.json();
+      }
     })
     .then(data => {
       if (data !== undefined) {
@@ -22,10 +22,10 @@ function Crud() {
     .catch(error => console.error('Fetch error:', error));
   };
 
-  const delNote = (e) => {    // console.log('кнопка Х')
+  const delNote = (e) => {
     const divIdUUNote = e.target.previousElementSibling;
     const idUUNote = divIdUUNote.textContent;
-    const ObjNoteIdUU = allNotes.find(objNote => objNote.idUU === idUUNote);
+    const ObjNoteIdUU = notes.find(objNote => objNote.idUU === idUUNote);
     const idObjNote = ObjNoteIdUU.id;
     fetchDel(idObjNote);
     updateNotes();
@@ -34,7 +34,7 @@ function Crud() {
   const fetchPost = async (textNewNote) => {
     let bodyFetchPost = {
       id: 0,
-      idUU: indexUU(),
+      idUU: uuidv4(),
       content: textNewNote
     };
     const response = await fetch('http://localhost:7070/notes', {
@@ -45,7 +45,7 @@ function Crud() {
     .then(response => {
       if (response.ok) {
         updateNotes();
-      }      // response.json();
+      }
     })
     .then(data => {
       if (data !== undefined) {
@@ -65,7 +65,7 @@ function Crud() {
       return response.json();
     })
     .then(data => {
-      setAllNotes(data);
+      setNotes(data);
     })
     .catch(error => {
       console.error('Ошибка при выполнении запроса: ', error);
@@ -96,8 +96,8 @@ function Crud() {
           </div>
           <button id='updateBtn' onClick={updateNotes}>Обнавить</button>
         </div>
-        <div id='divAllNotes'>
-          <AllNotes props={allNotes} funcDel={delNote} />
+        <div id='divNotes'>
+          <Notes props={notes} funcDel={delNote} />
         </div>
         <div id='crudBottom'>
           <div>New Note</div>
