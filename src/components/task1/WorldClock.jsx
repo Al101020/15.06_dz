@@ -10,7 +10,6 @@ function WorldClock() {
   const [timeZone, setTimeZone] = useState(0);
 
   const [allWorldClock, setAllWorldClock ] = useState([]);
-  // const [timeOf0TimeZone, setTimeOf0TimeZone ] = useState(funcTimeZone0());
   const [funcMomentState, setFuncMomentState ] = useState(funcMoment());
 
   const btnAddClock = (e) => {
@@ -19,10 +18,8 @@ function WorldClock() {
       const addClock = {
         title: title,
         timeZone: timeZone,
-        idUU: funcUuidv4(),
-        // time: timeOf0TimeZone.utcOffset(Number(timeZone)).format('HH:mm:ss')
+        idUU: funcUuidv4()
       };
-      console.log(addClock);
       setAllWorldClock(allWorldClock => [...allWorldClock, addClock]);
     } else {
       alert('Нужно заполнить Название и Временная зона(от -12 до +12)');
@@ -33,8 +30,6 @@ function WorldClock() {
     setTimeZone('');
   }
 
-
-
   useEffect(() => {
     const interval = setInterval(() => {
       setFuncMomentState(funcMoment());
@@ -42,30 +37,6 @@ function WorldClock() {
     return () => clearInterval(interval);
   }, []);
 
-  // useEffect(
-  //   setInterval(() => {
-  //         // console.log(funcTimeZone0());
-  //     const newallWorldClock = {...allWorldClock};
-  //     setAllWorldClock(newallWorldClock);
-  //     // setTimeOf0TimeZone(funcTimeZone0()); // allWorldClock, 
-  //   }, 1000), [allWorldClock]
-  // );
-
-  // useEffect(
-  //   setInterval(() => {
-  //     // console.log(timeOf0TimeZone);
-  //     setTimeOf0TimeZone(funcTimeZone0());
-  //   }, 1000), [timeOf0TimeZone]
-  // );
-  
-  // useEffect(() => {
-  //   const tikTak = setInterval(() => {
-  //     setTimeOf0TimeZone(funcTimeZone0());
-  //   }, 1000);
-  //   // очистка интервала
-  //   return () => clearInterval(tikTak);
-  // }, [allWorldClock]);
-  
   return (
     <>
       <div className='task1'>

@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './crud.css';
-import ShowAllNotes from './ShowAllNotes'
+import AllNotes from './AllNotes'
 import { indexUU } from './indexUU';
 
 function Crud() {
@@ -8,21 +8,25 @@ function Crud() {
   const [allNotes, setAllNotes] = useState([]);
 
   const fetchDel = async (idNote) => {
-    console.log('fetchDel');
-    fetch('http://localhost:7070/notes/' + idNote, { method: 'DELETE' });
+    fetch('http://localhost:7070/notes/' + idNote, { method: 'DELETE' })
+    .then(response => {
+      if (response.ok) {
+        updateNotes();
+      }      // response.json();
+    })
+    .then(data => {
+      if (data !== undefined) {
+        console.log(data);
+      }
+    })
+    .catch(error => console.error('Fetch error:', error));
   };
 
-  const delNote = (e) => {
-    console.log('delNote');
+  const delNote = (e) => {    // console.log('кнопка Х')
     const divIdUUNote = e.target.previousElementSibling;
     const idUUNote = divIdUUNote.textContent;
-    console.log(idUUNote);    // console.log(idNote);
-
-    console.log(allNotes);
     const ObjNoteIdUU = allNotes.find(objNote => objNote.idUU === idUUNote);
-    console.log(ObjNoteIdUU);
     const idObjNote = ObjNoteIdUU.id;
-
     fetchDel(idObjNote);
     updateNotes();
   };
@@ -37,8 +41,20 @@ function Crud() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(bodyFetchPost)
-    });
+    })
+    .then(response => {
+      if (response.ok) {
+        updateNotes();
+      }      // response.json();
+    })
+    .then(data => {
+      if (data !== undefined) {
+        console.log(data);
+      }
+    })
+    .catch(error => console.error('Fetch error:', error));
   };
+  
 
   const fetchGet = () => {
     fetch('http://localhost:7070/notes')
@@ -49,7 +65,6 @@ function Crud() {
       return response.json();
     })
     .then(data => {
-      console.log(data);
       setAllNotes(data);
     })
     .catch(error => {
@@ -57,12 +72,12 @@ function Crud() {
     });
   };
 
-  const updateNotes = async() => {    // console.log('стрелочная функция - updateNotes');
-    fetchGet()
+  const updateNotes = async() => {
+    fetchGet();
   };
 
   const addNewNote = (e) => {
-    e.preventDefault();    // console.log('Клик кнопка Добавить New Note');
+    e.preventDefault();
     if (NewNote === '') {
       return
     } else {
@@ -71,10 +86,6 @@ function Crud() {
     setNewNote('');
     updateNotes();
   };
-  
-  // useEffect(() => {
-  //   updateNotes();
-  // }, []);
 
   return (
     <>
@@ -86,7 +97,7 @@ function Crud() {
           <button id='updateBtn' onClick={updateNotes}>Обнавить</button>
         </div>
         <div id='divAllNotes'>
-          <ShowAllNotes props={allNotes} funcDel={delNote} />
+          <AllNotes props={allNotes} funcDel={delNote} />
         </div>
         <div id='crudBottom'>
           <div>New Note</div>

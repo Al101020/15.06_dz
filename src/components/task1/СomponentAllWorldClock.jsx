@@ -1,8 +1,6 @@
-import moment from 'moment';
 import Clock from './Clock';
 
-const СomponentAllWorldClock  = (props) => {
-  // console.log(props);
+const СomponentAllWorldClock  = (props) => {  // console.log(props);
 
   if (props.propsAllWorldClock === undefined) {
     return;
@@ -11,16 +9,11 @@ const СomponentAllWorldClock  = (props) => {
   const allClock = props.propsAllWorldClock;
   const setAllClock = props.propsSetAllWorldClock;
 
-
   const delClock = (e) => {
     const divIdUU = e.target.previousElementSibling;
     const idUU = divIdUU.textContent;
-            // Filter
     const newAllClock = allClock.filter(objClock => objClock.idUU !== idUU);
-    console.log(newAllClock);
-    
     setAllClock(newAllClock);
-    console.log(allClock);
   };
 
   return (

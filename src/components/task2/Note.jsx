@@ -1,9 +1,6 @@
-// import { useEffect, useState } from 'react';
-
-const Notes = (props) => {   // console.log(props.funcDel);
-  const delNote = props.funcDel; //   const [propsNote, setPropsNote] = useState(props.props);
+const Note = (props) => {
+  const delNote = props.funcDel;
   const contentNote = props.props.content;
-  const idNote = props.props.id;
   const idUUNote = props.props.idUU;
 
   return (
@@ -17,4 +14,4 @@ const Notes = (props) => {   // console.log(props.funcDel);
   );
 }
 
-export default Notes;
+export default Note;

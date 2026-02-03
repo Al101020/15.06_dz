@@ -1,15 +1,10 @@
 import { useEffect, useState } from 'react';
 
-function Clock(props) {
-  console.log(props);
-  // console.log(props.objClock.time); // Number(props.objClock.timeZone) 
-  // const [titleClock, setTitleClock] = useState(props.objClock.title);
+function Clock(props) {  // console.log(props);
   const titleClock = props.objClock.title;
-  // const [timeZoneClock, setTimeZoneClock] = useState(props.objClock.timeZone);
-  // const timeZoneClock = props.objClock.timeZone;
-  const time = props.timeClock.utcOffset(Number(props.objClock.timeZone)).format('HH:mm:ss');//props.objClock.time;
+  const time = props.timeClock.utcOffset(Number(props.objClock.timeZone)).format('HH:mm:ss');
   const idUU = props.objClock.idUU;
-  const funcDelClock = props.functionDelClock;  //  console.log(funcDelClock);
+  const funcDelClock = props.functionDelClock;
 
   return (
     <>
